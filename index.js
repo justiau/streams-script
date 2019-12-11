@@ -1,8 +1,5 @@
 (function() {
-    console.log('12:27')
-
     const elUI = document.createElement('iframe');
-    elUI.width = 800;
     elUI.setAttribute('style', `
         display: block;
         position: fixed;
@@ -11,7 +8,8 @@
         right: 0;
         top: 0;
         bottom: 0;
-        height: 100%;
+        width: 60%;
+        height: 30%;
         border: 1px solid black;
         opacity: 1.0;
         filter: alpha(opacity=100);
@@ -30,38 +28,56 @@
         `);
         contents.find('body').html(`
             <div class="ui">
-                <h4 class="ui header">Set values</h4>
+                <h4 class="ui header" style="text-align:center">Set values</h4>
                 <form class="ui form">
-                    <div class="fields">
-                        <div class="course-input">
+                    <div style="text-align:center; display:inline-block;">
+                        <div style="padding:3px; text-align:left; display: inline-block">
                             <label>Course code</label>
-                            <input class="prompt" type="text" placeholder="COMP2310" name="courseCode" id="courseCode">
+                            <input class="prompt" type="text" placeholder="comp2310" name="courseCode" id="courseCode">
                         </div>
-                        <div class="day-input">
+
+                        <div style="padding:3px; text-align:left; display: inline-block">
                             <label>Day of the week</label>
-                            <input class="prompt" type="text" placeholder="Wednesday" name="day" id="day">
+                            <input class="prompt" type="text" placeholder="wednesday" name="day" id="day">
                         </div>
-                        <div class="time-input">
+
+                        <div style="padding:3px; text-align:left; display: inline-block">
                             <label>Time period</label>
                             <input class="prompt" type="text" placeholder="12:00 - 14:00" name="time" id="time">
                         </div>
-                        <div class="">
-                            <label>Start</label>
+                        
+                        <div>
                             <button class="ui fluid primary button" type="submit" id="start">Start</button>
                         </div>
+
+                        <div>
+                            <button class="ui fluid primary button" type="close" id="close">Close</button>
+                        </div>
                     </div>
+                    
                 </form>
             </div>
         `);
         contents.find('#start').click(() => {
             const courseCode = contents.find("#courseCode").val().toLowerCase().trim();
             const day = contents.find('#day').val().toLowerCase().trim();
-            const time = contents.find('#time').val().toLowerCase().trim();
-            console.log(courseCode);
-            console.log(day);
-            console.log(time);
+            var time = contents.find('#time').val().toLowerCase().trim();
+            var hyphenIndex = time.indexOf('-');
+            console.log("input time: " + time);
+            if (time.charAt(hyphenIndex - 1) != ' ') {
+                time = time.substring(0,hyphenIndex) + ' ' + time.substring(hyphenIndex)
+                hyphenIndex++;
+                console.log ("space added before hyphen " + time)
+            }
+            if (time.charAt(hyphenIndex + 1) != ' ') {
+                time = time.substring(0,hyphenIndex + 1) + ' ' + time.substring(hyphenIndex + 1)
+                console.log ("space added after hyphen " + time)
+            }
             $([elUI]).remove();
             register(courseCode, day, time);
+        });
+        contents.find("#close").click(() => {
+            $([elUI]).remove();
         })
     };
 
@@ -95,4 +111,3 @@
         }, 500, courseCode, day, time);
     }
 })();
-
