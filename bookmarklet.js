@@ -8,7 +8,7 @@ javascript: (function() {
         } else onload();
     })(function() {
         var s = document.createElement("script");
-        s.src = "http://localhost:8000/index.js";
+        s.src = "https://gitcdn.xyz/repo/justiau/streams-script/master/index.js";
         document.body.appendChild(s);
     })
 })();
