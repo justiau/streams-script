@@ -9,7 +9,7 @@
         top: 0;
         bottom: 0;
         width: 60%;
-        height: 30%;
+        height: 40%;
         border: 1px solid black;
         opacity: 1.0;
         filter: alpha(opacity=100);
@@ -27,36 +27,41 @@
             <script src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
         `);
         contents.find('body').html(`
-            <div class="ui">
-                <h4 class="ui header" style="text-align:center">Set values</h4>
-                <form class="ui form">
-                    <div style="text-align:center; display:inline-block;">
-                        <div style="padding:3px; text-align:left; display: inline-block">
-                            <label>Course code</label>
+        <div class="ui segment">
+            <h4 class="ui dividing header" style="text-align:center; margin:auto; padding-bottom: 10px;">Register STREAMS lab / tutorial</h4>
+            <form class="ui form">
+                <div class="ui three column centered grid">
+                    <div class="four column centered row">
+                        <div class="column">
+                            <label style="display:block; text-align:center; padding: 0.5em; font-weight: bold">Course code</label>
                             <input class="prompt" type="text" placeholder="comp2310" name="courseCode" id="courseCode">
                         </div>
-
-                        <div style="padding:3px; text-align:left; display: inline-block">
-                            <label>Day of the week</label>
+        
+                        <div class="column">
+                            <label style="display:block; text-align:center; padding: 0.5em; font-weight: bold">Day of the week</label>
                             <input class="prompt" type="text" placeholder="wednesday" name="day" id="day">
                         </div>
-
-                        <div style="padding:3px; text-align:left; display: inline-block">
-                            <label>Time period</label>
+        
+                        <div class="column">
+                            <label style="display:block; text-align:center; padding: 0.5em; font-weight: bold">Time period</label>
                             <input class="prompt" type="text" placeholder="12:00 - 14:00" name="time" id="time">
                         </div>
-                        
-                        <div>
+                    </div>
+                    <div class="three column centered row">
+                        <div class="column" style="display:inline-block text-align:left">
                             <button class="ui fluid primary button" type="submit" id="start">Start</button>
                         </div>
-
-                        <div>
+        
+                        <div class="column" style="display:inline-block; text-align:left;">
                             <button class="ui fluid primary button" type="close" id="close">Close</button>
                         </div>
                     </div>
-                    
-                </form>
-            </div>
+                    <p style="font-weight:bold; opacity: 0.35">
+                        By Justin Au
+                    </p>
+                </div>
+            </form>
+        </div>
         `);
         contents.find('#start').click(() => {
             const courseCode = contents.find("#courseCode").val().toLowerCase().trim();
