@@ -112,9 +112,10 @@
                 url: document.location.href
             }).done(function(coursesHTML){
                 if (checkSession(coursesHTML)) {
+                    console.log("Session valid. Looking for courseCode " + courseCode + " on " + day + " at " + time);
                     var rows = jQuery(coursesHTML).find('table tr');
                     for (var i = 2; i < rows.length; i++) {
-                        if (rows[i].textContent.toLowerCase().includes(courseCode) && rows[i].cells[2].textContent.includes("Register")) {
+                        if (rows[i].textContent.toLowerCase().includes(courseCode) && rows[i].cells[2] && rows[i].cells[2].textContent.includes("Register")) {
                             clearInterval(rep);
                             $.ajax({
                                 url: window.location.href.split('?')[0]+rows[i].cells[2].firstChild.search
@@ -134,6 +135,11 @@
                 } else {
                     clearInterval(rep);
                     alert("Your session has expired. Please relog and rerun the script.");
+                    setInterval(function() {
+                        document.title = "LOGIN AGAIN"
+                        setTimeout(500);
+                        document.title = "SESSION EXPIRED"
+                    }, 1000);
                 }
             });
         }, 500, courseCode, day, time);
@@ -151,16 +157,4 @@
         }
         return !(userBl || passBl);
     }
-
-    // function checkSession(html) {
-    //     var userBl = jQuery(html).find('tbody > tr > td:contains("Username")').length > 0;
-    //     var passBl = jQuery(html).find('tbody > tr > td:contains("Password")').length > 0;
-    //     return !(userBl || passBl);
-    // }
-
-    // function checkDocumentSession() {
-    //     var userBl = ($('tbody > tr > td:contains("Username")')).length > 0;
-    //     var passBl = ($('tbody > tr > td:contains("Password")')).length > 0;
-    //     return !(userBl || passBl);
-    // }
 })();
